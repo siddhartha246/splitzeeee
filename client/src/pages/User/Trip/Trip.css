@@ -2,6 +2,7 @@
 
     width: 100%;
     background-color: var(--sec1);
+    background: linear-gradient(135deg, var(--sec1) 0%, rgba(249, 250, 252, 0.8) 100%);
     border-radius: 15px;
     padding: 20px;
 
@@ -10,21 +11,55 @@
 
     margin-top: 20px;
     border: 1px solid var(--sep);
+    box-shadow: var(--shadow-light);
+    transition: all var(--transition-smooth);
+    animation: slideInUp 0.6s ease-out;
+}
 
+.tripcu:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
 }
 
 .tripInfoTable{
 
     border: 0px solid black;
     border-collapse: collapse;
+    animation: slideInLeft 0.6s ease-out 0.2s both;
 
 }
 
 .tripInfoTable > thead > td{
     padding: 10px 20px;
+    font-weight: 600;
+    color: var(--dark2);
+    position: relative;
 }
+
+.tripInfoTable > thead > td::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--blue1), var(--blue2));
+    transition: all var(--transition-smooth);
+    transform: translateX(-50%);
+}
+
+.tripInfoTable:hover > thead > td::after {
+    width: 80%;
+}
+
 .tripInfoTable > tr > td{
     padding: 0px 20px;
+    transition: all var(--transition-smooth);
+}
+
+.tripInfoTable > tr:hover > td {
+    background-color: rgba(0, 134, 230, 0.05);
+    transform: scale(1.02);
 }
 
 .data{
@@ -32,14 +67,55 @@
     text-align: center;
     font-size: 0.9rem;
     border-left: 2px solid var(--sec3);
+    transition: all var(--transition-smooth);
+    cursor: pointer;
+}
+
+.data:hover {
+    border-left-color: var(--blue1);
+    transform: translateX(3px);
 }
 
 .inflow{
     color: var(--red1);
+    position: relative;
+}
+
+.inflow::before {
+    content: '↓';
+    position: absolute;
+    left: -15px;
+    opacity: 0;
+    transition: all var(--transition-smooth);
+}
+
+.inflow:hover::before {
+    opacity: 1;
+    animation: bounce 0.6s ease-in-out;
 }
 
 .outflow{
     color: var(--green1);
+    position: relative;
+}
+
+.outflow::before {
+    content: '↑';
+    position: absolute;
+    left: -15px;
+    opacity: 0;
+    transition: all var(--transition-smooth);
+}
+
+.outflow:hover::before {
+    opacity: 1;
+    animation: bounce 0.6s ease-in-out;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
 }
 
 .tripActions{
@@ -50,6 +126,7 @@
     width: 50%;
     height: 100%;
     gap: 10px;
+    animation: slideInRight 0.6s ease-out 0.2s both;
 }
 
 .tripAction{
@@ -63,32 +140,66 @@
 
     cursor: pointer;
     transition-duration: 200ms;
+    transition: all var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+}
 
+.tripAction::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.6s;
+}
+
+.tripAction:hover::before {
+    left: 100%;
 }
 
 .tripAction:hover{
     transform: translateY(-3px);
+    box-shadow: var(--shadow-medium);
+}
+
+.tripAction:active {
+    transform: translateY(-1px);
+    transition: all 0.1s ease;
 }
 
 .actionblue{
     background-color: var(--bluea);
+    background: linear-gradient(135deg, var(--bluea), rgba(201, 233, 255, 0.8));
     color: var(--blue1);
+    border: 1px solid rgba(0, 134, 230, 0.2);
 }
+
 .actionyellow{
 
     background-color: var(--yellowa);
+    background: linear-gradient(135deg, var(--yellowa), rgba(255, 241, 172, 0.8));
     color: var(--yellow2);
+    border: 1px solid rgba(255, 213, 0, 0.2);
 
 }
+
 .actionred{
 
     background-color: var(--reda);
+    background: linear-gradient(135deg, var(--reda), rgba(255, 196, 210, 0.8));
     color: var(--red1);
+    border: 1px solid rgba(255, 0, 64, 0.2);
 
 }
+
 .actiongreen{
     background-color: var(--greena);
+    background: linear-gradient(135deg, var(--greena), rgba(196, 255, 204, 0.8));
     color: var(--green1);
+    border: 1px solid rgba(0, 184, 24, 0.2);
 }
 
 .tripButton{
@@ -108,12 +219,34 @@
 
     cursor: pointer;
     transition-duration: 200ms;
+    transition: all var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+}
 
+.tripButton::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+}
+
+.tripButton:active::after {
+    width: 100px;
+    height: 100px;
 }
 
 .tripButton:hover{
 
     filter: brightness(90%);
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: var(--shadow-light);
 
 }
 
@@ -122,12 +255,14 @@
     flex-direction: column;
     gap: 40px;
     margin-top: 40px;
+    animation: slideInUp 0.8s ease-out 0.4s both;
 }
 
 .tripTransactionSection{
     width: 100%;
     display: flex;
     flex-direction: column;
+    animation: slideInLeft 0.6s ease-out both;
 }
 
 .tripTransactionSectionHeader{
@@ -136,6 +271,31 @@
     align-items: center;
     
     padding: 0 10px;
+    transition: all var(--transition-smooth);
+    cursor: pointer;
+}
+
+.tripTransactionSectionHeader:hover {
+    transform: translateX(5px);
+}
+
+.tripTransactionSectionHeader > h3 {
+    position: relative;
+}
+
+.tripTransactionSectionHeader > h3::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--blue1), var(--blue2));
+    transition: width var(--transition-smooth);
+}
+
+.tripTransactionSectionHeader:hover > h3::after {
+    width: 100%;
 }
 
 .tripTransactionSectionHeader > div{
@@ -144,6 +304,11 @@
     margin-left: auto;
     gap: 40px;
     color: var(--dark1);
+    transition: color var(--transition-smooth);
+}
+
+.tripTransactionSectionHeader:hover > div {
+    color: var(--dark2);
 }
 
 
@@ -152,29 +317,106 @@
     align-items: center;
     width: 100%;
     background-color: var(--sec1);
+    background: linear-gradient(135deg, var(--sec1) 0%, rgba(249, 250, 252, 0.9) 100%);
     padding: 20px 30px;
     border-radius: 15px;
     margin-top: 20px;
 
     border: 1px solid var(--sep);
+    box-shadow: var(--shadow-light);
+    transition: all var(--transition-smooth);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    animation: slideInUp 0.5s ease-out both;
+}
+
+.tripTransaction::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 134, 230, 0.05), transparent);
+    transition: left 0.6s;
+}
+
+.tripTransaction:hover::before {
+    left: 100%;
+}
+
+.tripTransaction:hover {
+    transform: translateY(-2px) translateX(5px);
+    box-shadow: var(--shadow-medium);
+    border-color: var(--blue1);
 }
 
 .tripTransactionIcon{
     height: 40px;
     aspect-ratio: 1;
     background-color: teal;
+    background: linear-gradient(135deg, #00b818, #00de73);
     border-radius: 10px;
 
     margin-right: 20px;
+    transition: all var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+}
+
+.tripTransactionIcon::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+    transform: rotate(45deg);
+    transition: all var(--transition-smooth);
+    opacity: 0;
+}
+
+.tripTransaction:hover .tripTransactionIcon::before {
+    opacity: 1;
+    animation: shimmer 1s ease-in-out;
+}
+
+.tripTransaction:hover .tripTransactionIcon {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 4px 12px rgba(0, 184, 24, 0.3);
 }
 
 .tripTransactionDate{
     color: var(--dark1);
+    transition: color var(--transition-smooth);
+}
+
+.tripTransaction:hover .tripTransactionDate {
+    color: var(--dark2);
 }
 
 .tripTransactionAmount{
     margin-left: auto;
     margin-right: 40px;
+    font-weight: 600;
+    transition: all var(--transition-smooth);
+    position: relative;
+}
+
+.tripTransactionAmount::before {
+    content: '$';
+    position: absolute;
+    left: -15px;
+    opacity: 0.5;
+    transition: all var(--transition-smooth);
+}
+
+.tripTransaction:hover .tripTransactionAmount::before {
+    opacity: 1;
+    color: var(--green1);
+    animation: bounce 0.6s ease-in-out;
 }
 
 .tripTransactionIcons{
@@ -183,6 +425,12 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    opacity: 0.7;
+    transition: opacity var(--transition-smooth);
+}
+
+.tripTransaction:hover .tripTransactionIcons {
+    opacity: 1;
 }
 
 .tripTransactionIcons > div{
@@ -196,13 +444,38 @@
 
     font-size: 1.3em;
     border-radius: 10px;
+    transition: all var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+}
 
-    
+.tripTransactionIcons > div::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+}
+
+.tripTransactionIcons > div:active::before {
+    width: 60px;
+    height: 60px;
 }
 
 .tripTransactionIcons > div.delete{
     color: var(--red1);
     background-color: var(--reda);
+    background: linear-gradient(135deg, var(--reda), rgba(255, 196, 210, 0.8));
+}
+
+.tripTransactionIcons > div.delete:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(255, 0, 64, 0.3);
 }
 
 .tripTransactionIcons > div.delete:hover{
@@ -213,6 +486,12 @@
 .tripTransactionIcons > div.bookmark{
     color: var(--blue1);
     background-color: var(--bluea);
+    background: linear-gradient(135deg, var(--bluea), rgba(201, 233, 255, 0.8));
+}
+
+.tripTransactionIcons > div.bookmark:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 134, 230, 0.3);
 }
 
 .tripTransactionIcons > div.bookmark:hover{
@@ -266,7 +545,15 @@
 
     padding: 10px 20px;
     text-align: center;
+    transition: all var(--transition-smooth);
+    cursor: pointer;
+    position: relative;
+}
 
+.totalCell:hover {
+    background-color: rgba(0, 134, 230, 0.05);
+    transform: scale(1.05);
+    border-radius: 8px;
 }
 
 .totals{
@@ -277,13 +564,43 @@
     align-items: center;
 
     background-color: var(--sec1);
+    background: linear-gradient(135deg, var(--sec1) 0%, rgba(249, 250, 252, 0.95) 100%);
     padding: 30px 60px;
 
     border-radius: 20px;
     box-shadow: 0px 0px 30px rgb(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    animation: scaleIn 0.5s ease-out;
+    transition: all var(--transition-smooth);
+}
 
+.totals:hover {
+    transform: scale(1.02);
+    box-shadow: var(--shadow-heavy);
 }
 
 .totalsTable{
     margin-top: 40px;
+    animation: slideInUp 0.6s ease-out 0.2s both;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-light);
+}
+
+.totalsTable thead {
+    background: linear-gradient(135deg, var(--blue1), var(--blue2));
+    color: white;
+}
+
+.totalsTable thead .totalCell {
+    font-weight: 600;
+}
+
+.totalsTable tbody tr:nth-child(even) {
+    background-color: rgba(0, 134, 230, 0.02);
+}
+
+.totalsTable tbody tr:hover {
+    background-color: rgba(0, 134, 230, 0.08);
+    transform: scale(1.02);
 }

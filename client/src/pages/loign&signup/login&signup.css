@@ -1,5 +1,7 @@
 .loginSignup{
     display: flex;
+    min-height: 100vh;
+    animation: fadeIn 1s ease-out;
 }
 
 .loginImage{
@@ -7,6 +9,7 @@
     height: 100vh;
     background-image: url("./assets/bg2.jpg");
     background-size: cover;
+    background-position: center;
 
     display: flex;
     align-items: center;
@@ -17,10 +20,13 @@
     /* text-shadow: 0px 0px 10px black; */
 
     position: relative;
+    animation: slideInLeft 0.8s ease-out;
 }
 
 .loginImage > h1, h2{
     z-index: 1;
+    animation: slideInUp 1s ease-out 0.3s both;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .loginImage::after{
@@ -34,6 +40,7 @@
     z-index: 0;
 
     mix-blend-mode: soft-light;
+    animation: fadeIn 1.5s ease-out;
 
 }
 
@@ -47,12 +54,14 @@
     background-color: black;
     z-index: 0;
     opacity: 0.2;
+    animation: fadeIn 1.2s ease-out;
 
 }
 
 .loginFormCont{
     width: 50%;
     background-color: #eeeeee;
+    background: linear-gradient(135deg, #eeeeee 0%, #f8f9fa 100%);
     padding: 70px;
 
     height: 100vh;
@@ -60,21 +69,29 @@
 
     display: flex;
     flex-direction: column;
+    animation: slideInRight 0.8s ease-out;
 }
 
 .loginFormCont > h1{
     font-size: 3em;
+    background: linear-gradient(135deg, var(--blue1), var(--blue2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: slideInUp 0.8s ease-out 0.2s both;
 }
 
 .loginFormCont > p{
     margin-top: 20px;
     color: gray;
+    animation: slideInUp 0.8s ease-out 0.4s both;
 }
 
 .signupForm{
     display: flex;
     flex-direction: column;
     margin-top: 50px;
+    animation: slideInUp 0.8s ease-out 0.6s both;
 }
 
 .signupForm > .formRow{
@@ -82,22 +99,40 @@
     display: flex;
     width: 100%;
     gap: 40px;
+    animation: slideInLeft 0.6s ease-out both;
 
 }
 
+.signupForm > .formRow:nth-child(1) { animation-delay: 0.1s; }
+.signupForm > .formRow:nth-child(2) { animation-delay: 0.2s; }
+.signupForm > .formRow:nth-child(3) { animation-delay: 0.3s; }
+.signupForm > .formRow:nth-child(4) { animation-delay: 0.4s; }
+.signupForm > .formRow:nth-child(5) { animation-delay: 0.5s; }
+
 .signupForm > .formRow:not(:nth-of-type(1)){
     margin-top: 30px;
+}
+
+.formRow:hover {
+    transform: translateX(5px);
 }
 
 .formRow > .formControl{
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    transition: all var(--transition-smooth);
 }
 
 .formControl > label{
     color: gray;
     margin-bottom: 10px;
+    font-weight: 600;
+    transition: color var(--transition-smooth);
+}
+
+.formControl:hover > label {
+    color: var(--blue1);
 }
 
 .formControl > input{
@@ -110,30 +145,87 @@
     padding: 0px 20px;
     font-size: 1em;
     border-radius: 5px;
+    transition: all var(--transition-smooth);
+    font-family: inherit;
+}
+
+.formControl > input:hover {
+    border-color: var(--blue1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 134, 230, 0.1);
+}
+
+.formControl > input:focus {
+    border-color: var(--blue1);
+    transform: scale(1.02);
+    box-shadow: 0 0 0 3px rgba(0, 134, 230, 0.1);
 }
 
 .formFooter{
     margin: 20px 0px;
     display: flex;
     justify-content: space-between;
+    animation: slideInUp 0.6s ease-out 0.7s both;
+}
+
+.formFooter > * {
+    transition: all var(--transition-smooth);
+}
+
+.formFooter > *:hover {
+    transform: translateY(-1px);
 }
 
 .signupForm > button{
     height: 50px;
     background-color: rgb(150, 0, 236);
+    background: linear-gradient(135deg, rgb(150, 0, 236), rgb(98, 95, 255));
     border: 0px solid;
 
     color: white;
     font-size: 1em;
+    font-weight: 600;
 
     border-radius: 5px;
 
     transition-duration: 200ms;
+    transition: all var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-light);
+    animation: slideInUp 0.6s ease-out 0.8s both;
+}
 
+.signupForm > button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.6s;
+}
+
+.signupForm > button:hover::before {
+    left: 100%;
+}
+
+.signupForm > button:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-medium);
+}
+
+.signupForm > button:active {
+    transform: translateY(-1px);
+    transition: all 0.1s ease;
 }
 
 .signupForm > button:disabled{
     background-color: var(--dark1);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
 }
 
 .remember > input{
@@ -146,6 +238,8 @@
 .error{
     color: rgb(239, 0, 60);
     margin-bottom: 5px;
+    animation: shake 0.6s ease-out;
+    font-weight: 500;
 }
 
 .signupSuccess{
@@ -165,6 +259,7 @@
     align-items: center;
     justify-content: center;
     color: rgb(0, 180, 0);
+    animation: fadeIn 0.5s ease-out;
 
 }
 
@@ -172,6 +267,7 @@
     height: 300px;
     width: 600px;
     background-color: #f6f6f6;
+    background: linear-gradient(135deg, #f6f6f6 0%, #ffffff 100%);
 
     border-radius: 30px;
 
@@ -180,10 +276,35 @@
     align-items: center;
     justify-content: center;
     box-shadow: 0 0 50px black;
+    animation: scaleIn 0.6s ease-out 0.2s both;
+    transition: all var(--transition-smooth);
+}
 
+.signupSuccess > div:hover {
+    transform: scale(1.02);
+    box-shadow: var(--shadow-heavy);
+}
 
+.signupSuccess h2 {
+    background: linear-gradient(135deg, var(--green1), var(--green2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .rm > input{
     margin-right: 10px;
+    transition: all var(--transition-smooth);
+}
+
+.rm > input:hover {
+    transform: scale(1.1);
+}
+
+.rm > label {
+    transition: color var(--transition-smooth);
+}
+
+.rm:hover > label {
+    color: var(--blue1);
 }

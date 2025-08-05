@@ -2,9 +2,19 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+    animation: fadeIn 0.8s ease-out;
 }
 
 .home > div.row{
     display: flex;
     gap: 20px;
+    animation: slideInUp 0.6s ease-out 0.3s both;
+}
+
+.home > div.row > * {
+    transition: all var(--transition-smooth);
+}
+
+.home > div.row > *:hover {
+    transform: translateY(-2px);
 }

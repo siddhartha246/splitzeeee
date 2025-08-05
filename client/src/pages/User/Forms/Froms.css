@@ -11,6 +11,7 @@
     align-items: center;
     justify-content: center;
     z-index: 1000;
+    animation: fadeIn 0.3s ease-out;
     
 }
 
@@ -21,6 +22,9 @@
     
     box-shadow: 0px 0px 30px rgb(0, 0, 0, 0.4);
     background-color: var(--sec1);
+    background: linear-gradient(135deg, var(--sec1) 0%, rgba(249, 250, 252, 0.95) 100%);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 
     display: flex;
     flex-direction: column;
@@ -31,6 +35,25 @@
 
     animation: appear 100ms forwards;
     animation-timing-function: ease-in;
+    transition: all var(--transition-smooth);
+}
+
+.popupFrom:hover {
+    transform: scale(1.01);
+    box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.5);
+}
+
+.popupFrom > h2 {
+    background: linear-gradient(135deg, var(--blue1), var(--blue2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: slideInUp 0.5s ease-out 0.1s both;
+}
+
+.popupFrom > p {
+    color: var(--dark1);
+    animation: slideInUp 0.5s ease-out 0.2s both;
     
 }
 
@@ -38,10 +61,12 @@
 
     0%{
         opacity: 0;
+        transform: scale(0.9) translateY(20px);
     }
 
     100%{
         opacity: 1;
+        transform: scale(1) translateY(0);
     }
     
 }
@@ -63,10 +88,12 @@
 
     0%{
         backdrop-filter: blur(0px);
+        background-color: rgba(0, 0, 0, 0);
     }
 
     100%{
         backdrop-filter: blur(2px);
+        background-color: rgba(0, 0, 0, 0.1);
     }
     
 }
@@ -77,6 +104,7 @@
     margin-top: 30px;
     width: 100%;
     gap: 20px;
+    animation: slideInUp 0.6s ease-out 0.3s both;
 }
 
 .form > button{
@@ -84,24 +112,80 @@
     padding: 10px 0;
     font-size: 1em;
     background-color: var(--blue1);
+    background: linear-gradient(135deg, var(--blue1), var(--blue2));
     color: var(--sec1);
     border-radius: 8px;
+    transition: all var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+    font-weight: 600;
+    box-shadow: var(--shadow-light);
+}
+
+.form > button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.6s;
+}
+
+.form > button:hover::before {
+    left: 100%;
 }
 
 .form > button:hover{
     filter: brightness(95%);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+.form > button:active {
+    transform: translateY(0);
+    transition: all 0.1s ease;
+}
+
+.form > button:disabled {
+    background: var(--dark1);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
 }
 
 .form > .row{
     display: flex;
     gap: 40px;
     width: 100%;
+    animation: slideInLeft 0.5s ease-out both;
+}
+
+.form > .row:nth-child(1) { animation-delay: 0.1s; }
+.form > .row:nth-child(2) { animation-delay: 0.2s; }
+.form > .row:nth-child(3) { animation-delay: 0.3s; }
+.form > .row:nth-child(4) { animation-delay: 0.4s; }
+
+.row:hover {
+    transform: translateX(5px);
 }
 
 .row > .col{
     flex: 1;
     display: flex;
     flex-direction: column;
+    transition: all var(--transition-smooth);
+}
+
+.col > label {
+    font-weight: 600;
+    color: var(--dark2);
+    transition: color var(--transition-smooth);
+}
+
+.col:hover > label {
+    color: var(--blue1);
 }
 
 .col > input{
@@ -113,7 +197,20 @@
     margin-top: 5px;
     padding: 0px 10px;
     border-radius: 10px;
+    transition: all var(--transition-smooth);
+    font-family: inherit;
+}
 
+.col > input:hover {
+    border-color: var(--blue1);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 134, 230, 0.1);
+}
+
+.col > input:focus {
+    border-color: var(--blue1);
+    transform: scale(1.02);
+    box-shadow: 0 0 0 3px rgba(0, 134, 230, 0.1);
 }
 
 .closeButton{
@@ -124,6 +221,19 @@
     cursor: pointer;
     color: var(--red1);
     transition-duration: 100ms;
+    transition: all var(--transition-smooth);
+    padding: 8px;
+    border-radius: 50%;
+    background: rgba(255, 0, 64, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.closeButton:hover {
+    background: var(--reda);
+    transform: scale(1.1) rotate(90deg);
+    box-shadow: var(--shadow-light);
 }
 
 .closeButton:hover{
@@ -137,6 +247,7 @@
     flex-direction: column;
 
     margin-top: 30px;
+    animation: slideInUp 0.6s ease-out 0.4s both;
 }
 
 .friendListFriend{
@@ -145,7 +256,37 @@
     align-items: center;
     width: 100%;
     padding: 10px 0px;
+    transition: all var(--transition-smooth);
+    border-radius: 8px;
+    cursor: pointer;
+    animation: slideInLeft 0.5s ease-out both;
+}
 
+.friendListFriend:nth-child(1) { animation-delay: 0.1s; }
+.friendListFriend:nth-child(2) { animation-delay: 0.2s; }
+.friendListFriend:nth-child(3) { animation-delay: 0.3s; }
+
+.friendListFriend:hover {
+    background-color: rgba(0, 134, 230, 0.05);
+    transform: translateX(5px);
+    padding: 10px 15px;
+}
+
+.friendListFriend > div > h4 {
+    transition: color var(--transition-smooth);
+}
+
+.friendListFriend:hover > div > h4 {
+    color: var(--blue1);
+}
+
+.friendListFriend > div > p {
+    color: var(--dark1);
+    transition: color var(--transition-smooth);
+}
+
+.friendListFriend:hover > div > p {
+    color: var(--dark2);
 }
 
 .friendListFriend > button{
@@ -157,24 +298,57 @@
     border-radius: 10px;
 
     background-color: var(--greena);
+    background: linear-gradient(135deg, var(--greena), rgba(196, 255, 204, 0.8));
     color: var(--green1);
+    transition: all var(--transition-smooth);
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+}
 
+.friendListFriend > button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+}
+
+.friendListFriend > button:active::before {
+    width: 100px;
+    height: 100px;
+}
+
+.friendListFriend > button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 184, 24, 0.3);
 }
 
 .friendListFriend > button:disabled{
     background-color: var(--bluea);
+    background: linear-gradient(135deg, var(--bluea), rgba(201, 233, 255, 0.8));
     color: var(--blue1);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
 }
 
 .expenseFriends{
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    animation: slideInUp 0.6s ease-out 0.5s both;
 }
 
 .expenseFriends > p{
 
     background-color: var(--bluea);
+    background: linear-gradient(135deg, var(--bluea), rgba(201, 233, 255, 0.8));
     color: var(--blue1);
     padding: 7px 20px;
     border-radius: 10px;
@@ -183,14 +357,40 @@
     flex-grow: 1;
 
     transition-duration: 100ms;
+    transition: all var(--transition-smooth);
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0, 134, 230, 0.2);
+}
 
+.expenseFriends > p::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.6s;
+}
+
+.expenseFriends > p:hover::before {
+    left: 100%;
 }
 
 .expenseFriends > p:hover{
     filter: brightness(96%);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-light);
 }
 
 .expenseFriends > p.selected{
     background-color: var(--yellowa);
+    background: linear-gradient(135deg, var(--yellowa), rgba(255, 241, 172, 0.8));
     color: var(--yellow2);
+    border-color: rgba(255, 213, 0, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 213, 0, 0.2);
+    font-weight: 600;
 }

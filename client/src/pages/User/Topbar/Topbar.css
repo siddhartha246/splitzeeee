@@ -3,35 +3,105 @@
     padding: 30px 40px;
     display: flex;
     align-items: center;
+    background: linear-gradient(90deg, var(--sec2) 0%, rgba(246, 248, 250, 0.8) 100%);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    animation: slideInUp 0.6s ease-out;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    transition: all var(--transition-smooth);
+}
+
+.topbar:hover {
+    box-shadow: var(--shadow-light);
 }
 
 .topbar > .logo{
     height: 30px;
     width: 60px;
-    background-color: teal;
+    background: linear-gradient(135deg, #00b818, #00de73);
     margin-right: 10px;
-
     border-radius: 5px;
+    transition: all var(--transition-smooth);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.topbar > .logo::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+    transform: rotate(45deg);
+    transition: all var(--transition-smooth);
+    opacity: 0;
+}
+
+.topbar > .logo:hover::before {
+    opacity: 1;
+    animation: shimmer 1s ease-in-out;
+}
+
+.topbar > .logo:hover {
+    transform: scale(1.05) rotate(2deg);
+    box-shadow: 0 4px 12px rgba(0, 184, 24, 0.3);
 }
 
 .topbar > h3{
     color: var(--dark2);
+    transition: all var(--transition-smooth);
+    cursor: pointer;
+}
+
+.topbar > h3:hover {
+    color: var(--blue1);
+    transform: translateY(-1px);
 }
 
 .topbarMenu{
     display: flex;
     margin-left: auto;
-
     gap: 70px;
+    animation: slideInRight 0.6s ease-out 0.2s both;
 }
 
 .topbarMenuButton{
     font-weight: 600;
     cursor: pointer;
+    transition: all var(--transition-smooth);
+    padding: 8px 16px;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+}
 
-    transition-duration: 100ms;
+.topbarMenuButton::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--blue1), var(--blue2));
+    transition: all var(--transition-smooth);
+    transform: translateX(-50%);
+}
+
+.topbarMenuButton:hover::before {
+    width: 100%;
 }
 
 .topbarMenuButton:hover{
     color: var(--dark2);
+    background-color: rgba(0, 134, 230, 0.05);
+    transform: translateY(-2px);
+}
+
+.topbarMenuButton:active {
+    transform: translateY(0);
 }

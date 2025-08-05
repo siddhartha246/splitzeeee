@@ -4,10 +4,35 @@
     padding: 20px;
     padding-right: 100px;
     border: 1px solid hsl(0, 0%, 85%);
-
     min-width: 260px;
+    animation: slideInLeft 0.6s ease-out 0.3s both;
+    transition: all var(--transition-smooth);
+    box-shadow: var(--shadow-light);
 }
 
+.pendingDuesFriends:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+.pendingDuesFriends > h3 {
+    position: relative;
+}
+
+.pendingDuesFriends > h3::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--blue1), var(--blue2));
+    transition: width var(--transition-smooth);
+}
+
+.pendingDuesFriends:hover > h3::after {
+    width: 100%;
+}
 
 .pendingDuesFriends > .friends {
     display: flex;
@@ -19,19 +44,79 @@
 .friend{
     display: flex;
     align-items: center;
+    padding: 10px;
+    border-radius: 12px;
+    transition: all var(--transition-smooth);
+    cursor: pointer;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.friend:nth-child(1) { animation-delay: 0.1s; }
+.friend:nth-child(2) { animation-delay: 0.2s; }
+.friend:nth-child(3) { animation-delay: 0.3s; }
+.friend:nth-child(4) { animation-delay: 0.4s; }
+
+.friend:hover {
+    background-color: rgba(0, 134, 230, 0.05);
+    transform: translateX(5px);
+    box-shadow: var(--shadow-light);
 }
 
 .friend > .friendimg{
     height: 35px;
     aspect-ratio: 1;
     background-color: teal;
+    background: linear-gradient(135deg, #00b818, #00de73);
     border-radius: 100px;
     margin-right: 10px;
-
     border: 2px solid rgb(0, 255, 136);
+    transition: all var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+}
+
+.friend > .friendimg::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+    transform: rotate(45deg);
+    transition: all var(--transition-smooth);
+    opacity: 0;
+}
+
+.friend:hover > .friendimg::before {
+    opacity: 1;
+    animation: shimmer 1s ease-in-out;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+.friend:hover > .friendimg {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 255, 136, 0.3);
 }
 
 .friend > div > p{
     color: var(--dark1);
     font-size: 0.9em;
+    transition: color var(--transition-smooth);
+}
+
+.friend:hover > div > p {
+    color: var(--dark2);
+}
+
+.friend > div > h5 {
+    transition: color var(--transition-smooth);
+}
+
+.friend:hover > div > h5 {
+    color: var(--blue1);
 }
